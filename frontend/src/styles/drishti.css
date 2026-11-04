@@ -1,0 +1,58 @@
+:root { --drishti-navy: #0b2038; --drishti-teal: #0e5261; --drishti-page: #f2f5f8; --drishti-border: #e0e5ec; --drishti-text: #19263b; }
+.drishti-brand-lockup { display: inline-flex; align-items: center; gap: .85rem; font-weight: 680; }
+.drishti-brand-mark { display: grid; place-items: center; width: 3.25rem; height: 2.65rem; border-radius: .65rem; color: #0a203b; background: #c1e7ee; }
+.drishti-brand-mark svg { width: 2.35rem; height: 1.65rem; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.drishti-brand-mark .drishti-eye-pupil { fill: currentColor; stroke: none; }
+.drishti-brand-copy { display: grid; gap: .12rem; min-width: 0; }
+.drishti-brand-name { width: fit-content; font-size: 1.4rem; font-weight: 850; letter-spacing: .03em; line-height: 1.1; text-decoration: underline; text-decoration-thickness: .09em; text-underline-offset: .17em; }
+.drishti-brand-attribution { color: #cbd8e8; font-size: .67rem; font-weight: 500; letter-spacing: .01em; line-height: 1.25; }
+
+/* Keep Main-Dashboard's routes, permissions and drawer controls intact. */
+.drishti-workspace { min-height: 100dvh; background: var(--drishti-page); color: var(--drishti-text); }
+.drishti-workspace .drishti-dashboard-header {
+  background: var(--drishti-navy); color: #fff; border: 0; box-shadow: none;
+}
+.drishti-dashboard-header .MuiToolbar-root {
+  min-height: 82px; height: auto; padding: 18px clamp(20px, 4vw, 64px); gap: 16px;
+}
+.drishti-dashboard-brand { margin-right: auto; min-width: 0; }
+.drishti-dashboard-session { display: flex; align-items: center; gap: 12px; }
+.drishti-dashboard-header .drishti-session-role { color: #fff; font-size: .82rem; font-weight: 700; }
+.drishti-dashboard-header .drishti-connection-status { color: #c1e7ee; background: #ffffff12; border: 1px solid #ffffff26; text-transform: capitalize; }
+.drishti-dashboard-header .MuiIconButton-root { background: transparent; border: 1px solid #ffffff26; margin-right: 0; }
+.drishti-workspace .drishti-device-toolbar { padding: 16px clamp(20px, 4vw, 64px); gap: 16px; }
+.drishti-device-toolbar > .MuiTypography-root { color: #64748b; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
+.drishti-device-toolbar .MuiFormControl-root { width: min(100%, 420px); }
+.drishti-workspace .drishti-dashboard-sidebar .MuiDrawer-paper,
+.drishti-dashboard-sidebar .MuiDrawer-paper { background: #fff; border: 0; border-right: 1px solid var(--drishti-border); }
+.drishti-dashboard-sidebar .MuiListItemButton-root { color: #40536a; border-radius: 9px; }
+.drishti-dashboard-sidebar .MuiListItemText-primary { font-size: .82rem; font-weight: 700; }
+.drishti-dashboard-sidebar .MuiListItemIcon-root { color: #718096; }
+.drishti-dashboard-sidebar .MuiListItemButton-root:hover { color: var(--drishti-teal); background: #f2f8f9; }
+.drishti-dashboard-sidebar .MuiListItemButton-root.Mui-selected { color: var(--drishti-teal); background: #eaf6f7; box-shadow: inset 3px 0 0 var(--drishti-teal); }
+.drishti-dashboard-sidebar .MuiListItemButton-root.Mui-selected:hover { background: #e2f1f3; }
+.drishti-workspace .page-content { width: 100%; max-width: 1248px; margin-inline: auto; padding: clamp(24px, 4vw, 56px); padding-bottom: 64px; }
+.drishti-workspace .page-content > .MuiStack-root > .MuiPaper-root,
+.drishti-workspace .page-content .MuiGrid-item > .MuiPaper-root { box-shadow: 0 1px 3px #18253609; }
+.drishti-workspace :is(a, button):focus-visible { outline: 2px solid #29717f; outline-offset: 3px; }
+@media (max-width: 899px) {
+  .drishti-dashboard-header .MuiToolbar-root { min-height: 74px; padding: 16px 20px; gap: 12px; }
+  .drishti-dashboard-session { flex-direction: column; align-items: flex-end; gap: 4px; }
+  .drishti-workspace .drishti-device-toolbar { padding: 16px 20px; }
+  .drishti-workspace .page-content { padding: 24px 16px !important; padding-bottom: 64px !important; }
+}
+@media (max-width: 599px) {
+  .drishti-dashboard-header .drishti-connection-status { display: none; }
+  .drishti-dashboard-header .drishti-session-role { font-size: .72rem; }
+  .drishti-brand-lockup { gap: .55rem; }
+  .drishti-brand-name { font-size: 1.1rem; }
+  .drishti-brand-mark { width: 2.7rem; height: 2.3rem; }
+  .drishti-brand-attribution { max-width: 8rem; font-size: .61rem; }
+  .drishti-workspace .drishti-device-toolbar { align-items: stretch; flex-direction: column; gap: 12px; }
+  .drishti-device-toolbar > .MuiBox-root { width: 100%; flex-wrap: wrap; justify-content: flex-start; }
+  .drishti-device-toolbar .MuiFormControl-root { min-width: 0; flex: 1 1 220px; }
+  .drishti-workspace .page-content { padding: 20px 12px !important; padding-bottom: 64px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drishti-workspace .MuiDrawer-paper, .drishti-workspace .MuiCard-root { transition: none; }
+}

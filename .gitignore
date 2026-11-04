@@ -1,0 +1,45 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Python virtual environments
+.venv/
+venv/
+env/
+.auth-venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Frontend build
+frontend/dist/
+
+# TypeScript build cache
+*.tsbuildinfo
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local backup and safety copies
+*.bak
+*.backup*
+*.before-*
+*.pre-*
+*.broken-backup
+backups/
+water-mark logo.png
+
+# Generated TypeScript build cache
+*.tsbuildinfo

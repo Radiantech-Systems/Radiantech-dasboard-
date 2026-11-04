@@ -1,0 +1,81 @@
+
+# The Jetson agent (jetson-agent/) is NOT part of this compose file —
+# it runs directly on the Jetson device and points at this server's IP.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: telemetry-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-telemetry}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-telemetry_pw}
+      POSTGRES_DB: ${POSTGRES_DB:-telemetry_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-telemetry}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: telemetry-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env.fixed-accounts
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-telemetry}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-telemetry_pw}
+      POSTGRES_DB: ${POSTGRES_DB:-telemetry_db}
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://localhost:3000,http://localhost:8080}
+      DEVICE_OFFLINE_TIMEOUT_SECONDS: 15
+      API_KEY: ${API_KEY:-}
+      AUTH_USERNAME: ${AUTH_USERNAME:-Radiantech-Dashboard}
+      AUTH_IT_USERNAME: ${AUTH_IT_USERNAME:-IT}
+      AUTH_USER_USERNAME: ${AUTH_USER_USERNAME:-User}
+      AUTH_SESSION_SECRET: ${AUTH_SESSION_SECRET:-}
+      FOOTAGE_STORAGE_DIR: /app/footage_storage
+    volumes:
+      - footage_data:/app/footage_storage
+      - ai_snapshot_data:/app/ai_snapshot_storage
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: ${VITE_API_URL:-/api}
+        VITE_WS_URL: ${VITE_WS_URL:-ws://localhost:8000/ws/telemetry}
+        VITE_MEDIAMTX_URL: ${VITE_MEDIAMTX_URL:-http://localhost:8888}
+    container_name: telemetry-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+  mediamtx:
+    image: bluenviron/mediamtx:latest
+    container_name: aws-mediamtx
+    restart: unless-stopped
+    ports:
+      - "8554:8554"
+      - "8888:8888"
+    volumes:
+      - ./mediamtx/mediamtx.yml:/mediamtx.yml:ro
+
+volumes:
+  postgres_data:
+  footage_data:
+  ai_snapshot_data:

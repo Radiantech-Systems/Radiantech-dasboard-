@@ -1,0 +1,68 @@
+.drishti-login { min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(480px, .92fr); color: #172238; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+.drishti-login * { box-sizing: border-box; }
+.drishti-login-brand { min-height: 100dvh; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(2rem, 5vw, 5rem); color: #f4f7ff; background: radial-gradient(circle at 78% 20%, #3578b773, transparent 26rem), linear-gradient(145deg, #071225 0%, #0b223c 54%, #0b3860 100%); }
+.drishti-login-brand-copy { max-width: 41rem; margin: auto 0; padding: 7rem 0 4rem; }
+.drishti-login-eyebrow { margin: 0 0 1rem; color: #2f7481; text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; font-weight: 780; }
+.drishti-login-brand .drishti-login-eyebrow { color: #a5dce1; }
+.drishti-agency { display: flex; align-items: center; gap: .85rem; font-size: clamp(1.25rem, 2.2vw, 2rem); }
+.drishti-agency strong { font-weight: 800; }
+.drishti-agency-logo { display: grid; place-items: center; width: 3.15rem; height: 3.15rem; flex: 0 0 auto; border: 1px solid #d1e8ff99; border-radius: 50%; color: #0a203b; background: #e4f4f5; font-size: .63rem; font-weight: 900; }
+.drishti-agency-subtitle { margin: 1rem 0 0 4rem; color: #cbd8e8; font-size: clamp(1rem, 1.6vw, 1.35rem); }
+.drishti-security-note { display: flex; gap: .8rem; max-width: 39rem; padding-top: 1.5rem; border-top: 1px solid #d1e8ff38; color: #b7c7dc; font-size: .88rem; line-height: 1.5; }
+.drishti-security-note span { color: #a5dce1; font-size: 1.5rem; }.drishti-security-note p { margin: 0; }.drishti-security-note strong { color: #fff; }
+.drishti-login-panel { display: flex; flex-direction: column; align-items: center; min-height: 100dvh; padding: 2rem; background: #f8f9fc; }
+.drishti-login-card { width: min(100%, 27rem); margin-block: auto; }
+.drishti-login-footer { width: min(100%, 27rem); margin-top: 2rem; color: #7b8597; font-size: .75rem; line-height: 1.5; text-align: center; }
+.drishti-login-card h1 { margin: 0 0 .6rem; color: #172238; font-size: 2rem; letter-spacing: -.045em; }
+.drishti-login-intro { margin: 0 0 2rem; color: #667187; line-height: 1.55; }
+.drishti-access-switch { display: grid; grid-template-columns: 1fr 1fr; gap: .25rem; margin-bottom: 1.8rem; padding: .25rem; background: #e8ebf1; border-radius: .7rem; }
+.drishti-access-switch button { min-height: 2.7rem; padding: .75rem .4rem; border: 0; border-radius: .5rem; color: #667187; background: transparent; font: inherit; font-size: .82rem; font-weight: 700; cursor: pointer; }
+.drishti-access-switch button.selected { color: #172238; background: #fff; box-shadow: 0 1px 4px #1823381f; }
+.drishti-login form { display: grid; gap: .55rem; }
+.drishti-login label { color: #27344a; font-size: .85rem; font-weight: 680; }
+.drishti-login input { width: 100%; min-height: 3rem; padding: .85rem .9rem; border: 1px solid #cbd2df; border-radius: .55rem; outline: none; color: #172238; background: #fff; font: inherit; }
+.drishti-login input:focus { border-color: #29717f; box-shadow: 0 0 0 3px #29717f26; }
+.drishti-login-submit { min-height: 3rem; margin-top: 1.15rem; border: 1px solid #0e5261; border-radius: .55rem; color: #fff; background: #0e5261; font: inherit; font-weight: 750; cursor: pointer; }
+.drishti-login-submit:hover { background: #083d49; }.drishti-login-submit:disabled { opacity: .65; cursor: wait; }
+.drishti-login-error { margin: .5rem 0 0; color: #b02736; font-size: .84rem; }
+.drishti-login-support { margin: 2.2rem 0 0; padding-top: 1.3rem; border-top: 1px solid #dde2ea; color: #7b8597; font-size: .78rem; line-height: 1.5; }
+@media(max-width: 850px) { .drishti-login { grid-template-columns: 1fr; }.drishti-login-brand { min-height: auto; padding: 2rem; }.drishti-login-brand-copy { margin: 3.5rem 0 2.5rem; padding: 0; }.drishti-login-panel { min-height: auto; padding: 3.5rem 1.5rem 1.5rem; }.drishti-login-card { margin-block: 0; } }
+
+
+/* Adapt the reference's split-panel design to the original login form. */
+.login-page .login-main { display: flex; flex-direction: column; justify-content: center; align-items: center; min-width: 0; min-height: 100dvh; padding: 48px 32px; background: #f8f9fc; }
+.login-page .login-card { width: min(100%, 432px); padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.login-heading { margin-bottom: 24px; }
+.login-heading .login-welcome { margin-bottom: 16px; color: #2f7481; text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; font-weight: 780; }
+.login-heading .login-brand { margin: 0 0 10px; color: #172238; font-size: clamp(1.6rem, 3vw, 2rem); line-height: 1.2; letter-spacing: -.045em; font-weight: 700; }
+.login-heading .login-subtitle { color: #667187; font-size: .95rem; line-height: 1.55; }
+.role-section { margin-bottom: 28px; }
+.role-section .role-label { margin-bottom: 10px; color: #27344a; font-size: .85rem; font-weight: 680; }
+.role-switch { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; background: #e8ebf1; border-radius: 11px; }
+.role-switch .role-option { min-width: 0; min-height: 44px; padding: 10px 4px; color: #667187; border-radius: 8px; font-size: .78rem; font-weight: 700; line-height: 1.3; }
+.role-switch .role-option.selected { color: #172238; background: #fff; box-shadow: 0 1px 4px #1823381f; }
+.login-form { display: grid; gap: 20px; }
+.login-field-group { display: grid; gap: 8px; }
+.login-field-group > label { color: #27344a; font-size: .85rem; font-weight: 680; }
+.login-field .MuiOutlinedInput-root { min-height: 48px; background: #fff; border-radius: 9px; }
+.drishti-login .login-field input { min-height: 0; padding: 13px 14px; border: 0; border-radius: 0; background: transparent; box-shadow: none; font-size: .9rem; }
+.drishti-login .login-field input:focus { box-shadow: none; }
+.login-form .login-submit { min-height: 48px; margin-top: 4px; color: #fff; background: #0e5261; border-radius: 9px; font-weight: 750; }
+.login-form .login-submit:hover { background: #083d49; }
+.login-form .login-submit.Mui-disabled { color: #fff; background: #8caeb5; }
+.submit-arrow { margin-left: 8px; }
+.login-copyright { margin-top: 32px; color: #7b8597; font-size: .75rem; text-align: center; line-height: 1.5; }
+.drishti-login :is(button, input):focus-visible { outline: 2px solid #29717f; outline-offset: 3px; }
+@media (max-width: 1000px) and (min-width: 851px) {
+  .login-page.drishti-login { grid-template-columns: minmax(0, 1fr) minmax(380px, 1fr); }
+  .drishti-login-brand { padding: 32px; }
+}
+@media (max-width: 850px) {
+  .login-page .login-main { min-height: auto; padding: 48px 24px 32px; }
+  .drishti-login-brand-copy { margin: 40px 0; }
+}
+@media (max-width: 380px) {
+  .login-page .login-main { padding: 32px 16px; }
+  .drishti-login-brand { padding: 24px 16px; }
+  .role-switch .role-option { font-size: .7rem; }
+}

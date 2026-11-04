@@ -1,0 +1,220 @@
+/* ============================================================
+   GLOBAL FLUID / RESPONSIVE SYSTEM
+   ============================================================ */
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Everything should be allowed to shrink */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   MAIN APPLICATION
+   ============================================================ */
+
+.app-shell {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+.main-content {
+  min-width: 0 !important;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.page-content {
+  min-width: 0 !important;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   FLEX / GRID CHILDREN
+   ============================================================ */
+
+.MuiGrid-root,
+.MuiStack-root,
+.MuiCard-root,
+.MuiPaper-root {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* ============================================================
+   TEXT
+   ============================================================ */
+
+.MuiTypography-root {
+  min-width: 0;
+}
+
+.MuiTypography-root,
+.MuiListItemText-root {
+  overflow-wrap: anywhere;
+}
+
+/* Don't allow long IPs, URLs, filenames, etc. to expand page */
+code,
+pre,
+a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* ============================================================
+   IMAGES
+   ============================================================ */
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ============================================================
+   VIDEO
+   ============================================================ */
+
+video {
+  display: block;
+  max-width: 100%;
+}
+
+/* ============================================================
+   ECHARTS
+   ============================================================ */
+
+.echarts-for-react,
+.echarts-for-react > div {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+
+.MuiTableContainer-root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* The table itself may be wider than a phone.
+   Only the TABLE scrolls — not the whole webpage. */
+.MuiTable-root {
+  min-width: 520px;
+}
+
+/* ============================================================
+   DIALOGS
+   ============================================================ */
+
+.MuiDialog-paper {
+  width: calc(100% - 16px);
+  max-width: 900px;
+  margin: 8px;
+}
+
+.MuiDialogContent-root {
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   TOUCH TARGETS
+   ============================================================ */
+
+.MuiButton-root,
+.MuiIconButton-root,
+.MuiListItemButton-root {
+  touch-action: manipulation;
+}
+
+/* ============================================================
+   SMALL SCREENS
+   ============================================================ */
+
+@media (max-width: 899px) {
+  .page-content {
+    padding: 16px !important;
+  }
+}
+
+@media (max-width: 599px) {
+  .page-content {
+    padding: 10px !important;
+  }
+
+  .MuiPaper-root {
+    max-width: 100%;
+  }
+
+  .MuiCardContent-root {
+    padding: 14px !important;
+  }
+
+  .MuiDialog-paper {
+    width: calc(100% - 12px);
+    margin: 6px;
+  }
+
+  .MuiDialogContent-root {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* Allow button groups to wrap instead of creating overflow */
+  .MuiToggleButtonGroup-root {
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .MuiToggleButton-root {
+    flex: 0 1 auto;
+  }
+}
+
+/* ============================================================
+   VERY SMALL PHONES
+   ============================================================ */
+
+@media (max-width: 380px) {
+  .page-content {
+    padding: 8px !important;
+  }
+
+  .MuiCardContent-root {
+    padding: 12px !important;
+  }
+
+  .MuiTypography-h5 {
+    font-size: 1.15rem !important;
+  }
+
+  .MuiTypography-h6 {
+    font-size: 1rem !important;
+  }
+
+  .MuiTable-root {
+    min-width: 480px;
+  }
+}

@@ -1,0 +1,26 @@
+logLevel: info
+metrics: true
+rtsp: true
+rtspAddress: :8554
+
+hls: true
+hlsAddress: :8888
+hlsAllowOrigins: ["https://radiantech-dashboard.radiantechsys.com"]
+hlsAlwaysRemux: true
+
+paths:
+
+  jetson1_raw:
+    source: publisher
+
+  jetson1_ai:
+    source: publisher
+
+  sliced_test:
+    source: publisher
+
+  jetson2_raw:
+    source: publisher
+
+  jetson2_ai:
+    source: publisher
