@@ -16,14 +16,14 @@ import BrandLockup from "../components/BrandLockup";
 import "../styles/drishti.css";
 import "./Login.css";
 
-type AccountRole = "Admin" | "User" | "IT";
+type AccountRole = "User" | "IT";
 
 interface LoginProps {
-  onLogin: () => void;
+  onLogin: (destination: string) => void;
 }
 
 export default function Login({ onLogin }: LoginProps) {
-  const [role, setRole] = useState<AccountRole>("Admin");
+  const [role, setRole] = useState<AccountRole>("IT");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -36,8 +36,8 @@ export default function Login({ onLogin }: LoginProps) {
     setLoading(true);
 
     try {
-      await login(username, password, role);
-      onLogin();
+      const identity = await login(username, password, role);
+      onLogin(identity.role === "User" ? "/operational" : "/");
     } catch (err: any) {
       if (err?.response?.status === 401) {
         setError("Invalid username or password.");
@@ -86,7 +86,7 @@ export default function Login({ onLogin }: LoginProps) {
               role="group"
               aria-label="Select account type"
             >
-              {(["Admin", "User", "IT"] as AccountRole[]).map((item) => (
+              {(["IT", "User"] as AccountRole[]).map((item) => (
                 <Button
                   key={item}
                   type="button"
@@ -180,7 +180,7 @@ export default function Login({ onLogin }: LoginProps) {
                 <CircularProgress size={22} color="inherit" />
               ) : (
                 <>
-                  Sign in securely <span className="submit-arrow">â†’</span>
+                  Sign in securely <span className="submit-arrow">→</span>
                 </>
               )}
             </Button>
@@ -189,7 +189,7 @@ export default function Login({ onLogin }: LoginProps) {
           <p className="drishti-login-support">Need access or support? Contact your designated system administrator.</p>
 
           <Box component="footer" className="login-copyright">
-            Â© {new Date().getFullYear()} Radiantech-Systems Pvt LTD.
+            © {new Date().getFullYear()} Radiantech-Systems Pvt LTD.
             {" "}All rights reserved.
           </Box>
         </Paper>

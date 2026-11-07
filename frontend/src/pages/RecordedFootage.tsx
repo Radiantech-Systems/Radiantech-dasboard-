@@ -58,7 +58,7 @@ function formatSize(bytes: number | null): string {
 export default function RecordedFootage() {
   const { selectedDeviceId } = useDevice();
   const [range, setRange] =
-    useState<Exclude<RangePreset, "custom">>("last_day");
+    useState<"all" | Exclude<RangePreset, "custom">>("all");
 
   const [clips, setClips] = useState<FootageClip[]>([]);
   const [loading, setLoading] = useState(false);
@@ -195,6 +195,9 @@ export default function RecordedFootage() {
               value={range}
               onChange={(_, v) => v && setRange(v)}
             >
+              <ToggleButton value="all">
+                All Recordings
+              </ToggleButton>
               <ToggleButton value="last_hour">
                 Last Hour
               </ToggleButton>

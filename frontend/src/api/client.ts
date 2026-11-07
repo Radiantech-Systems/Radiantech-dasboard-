@@ -52,7 +52,7 @@ export interface PermissionCatalog {
 export async function login(
   username: string,
   password: string,
-  role: "Admin" | "User" | "IT"
+  role: "User" | "IT"
 ): Promise<AuthResponse> {
   const { data } = await client.post<AuthResponse>("/auth/login", {
     username,
@@ -277,7 +277,7 @@ export function buildTemperatureExportUrl(params: {
 
 export async function getFootage(params: {
   deviceId: string;
-  range?: Exclude<RangePreset, "custom">;
+  range?: "all" | Exclude<RangePreset, "custom">;
   start?: string;
   end?: string;
 }): Promise<FootageClip[]> {
@@ -324,7 +324,7 @@ export async function getFootage(params: {
       );
 
       // Apply the existing range buttons locally.
-      if (params.range) {
+      if (params.range && params.range !== "all") {
         const now = Date.now();
 
         const rangeMs: Record<

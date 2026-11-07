@@ -1,58 +1,397 @@
-:root { --drishti-navy: #0b2038; --drishti-teal: #0e5261; --drishti-page: #f2f5f8; --drishti-border: #e0e5ec; --drishti-text: #19263b; }
-.drishti-brand-lockup { display: inline-flex; align-items: center; gap: .85rem; font-weight: 680; }
-.drishti-brand-mark { display: grid; place-items: center; width: 3.25rem; height: 2.65rem; border-radius: .65rem; color: #0a203b; background: #c1e7ee; }
-.drishti-brand-mark svg { width: 2.35rem; height: 1.65rem; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
-.drishti-brand-mark .drishti-eye-pupil { fill: currentColor; stroke: none; }
-.drishti-brand-copy { display: grid; gap: .12rem; min-width: 0; }
-.drishti-brand-name { width: fit-content; font-size: 1.4rem; font-weight: 850; letter-spacing: .03em; line-height: 1.1; text-decoration: underline; text-decoration-thickness: .09em; text-underline-offset: .17em; }
-.drishti-brand-attribution { color: #cbd8e8; font-size: .67rem; font-weight: 500; letter-spacing: .01em; line-height: 1.25; }
+:root {
+  --drishti-navy: #0b2038;
+  --drishti-teal: #0e5261;
+  --drishti-page: #f2f5f8;
+  --drishti-border: #e0e5ec;
+  --drishti-text: #19263b;
+}
 
-/* Keep Main-Dashboard's routes, permissions and drawer controls intact. */
-.drishti-workspace { min-height: 100dvh; background: var(--drishti-page); color: var(--drishti-text); }
-.drishti-workspace .drishti-dashboard-header {
-  background: var(--drishti-navy); color: #fff; border: 0; box-shadow: none;
+.drishti-brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
 }
-.drishti-dashboard-header .MuiToolbar-root {
-  min-height: 82px; height: auto; padding: 18px clamp(20px, 4vw, 64px); gap: 16px;
+
+.drishti-brand-mark {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 2.5rem;
 }
-.drishti-dashboard-brand { margin-right: auto; min-width: 0; }
-.drishti-dashboard-session { display: flex; align-items: center; gap: 12px; }
-.drishti-dashboard-header .drishti-session-role { color: #fff; font-size: .82rem; font-weight: 700; }
-.drishti-dashboard-header .drishti-connection-status { color: #c1e7ee; background: #ffffff12; border: 1px solid #ffffff26; text-transform: capitalize; }
-.drishti-dashboard-header .MuiIconButton-root { background: transparent; border: 1px solid #ffffff26; margin-right: 0; }
-.drishti-workspace .drishti-device-toolbar { padding: 16px clamp(20px, 4vw, 64px); gap: 16px; }
-.drishti-device-toolbar > .MuiTypography-root { color: #64748b; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
-.drishti-device-toolbar .MuiFormControl-root { width: min(100%, 420px); }
-.drishti-workspace .drishti-dashboard-sidebar .MuiDrawer-paper,
-.drishti-dashboard-sidebar .MuiDrawer-paper { background: #fff; border: 0; border-right: 1px solid var(--drishti-border); }
-.drishti-dashboard-sidebar .MuiListItemButton-root { color: #40536a; border-radius: 9px; }
-.drishti-dashboard-sidebar .MuiListItemText-primary { font-size: .82rem; font-weight: 700; }
-.drishti-dashboard-sidebar .MuiListItemIcon-root { color: #718096; }
-.drishti-dashboard-sidebar .MuiListItemButton-root:hover { color: var(--drishti-teal); background: #f2f8f9; }
-.drishti-dashboard-sidebar .MuiListItemButton-root.Mui-selected { color: var(--drishti-teal); background: #eaf6f7; box-shadow: inset 3px 0 0 var(--drishti-teal); }
-.drishti-dashboard-sidebar .MuiListItemButton-root.Mui-selected:hover { background: #e2f1f3; }
-.drishti-workspace .page-content { width: 100%; max-width: 1248px; margin-inline: auto; padding: clamp(24px, 4vw, 56px); padding-bottom: 64px; }
-.drishti-workspace .page-content > .MuiStack-root > .MuiPaper-root,
-.drishti-workspace .page-content .MuiGrid-item > .MuiPaper-root { box-shadow: 0 1px 3px #18253609; }
-.drishti-workspace :is(a, button):focus-visible { outline: 2px solid #29717f; outline-offset: 3px; }
-@media (max-width: 899px) {
-  .drishti-dashboard-header .MuiToolbar-root { min-height: 74px; padding: 16px 20px; gap: 12px; }
-  .drishti-dashboard-session { flex-direction: column; align-items: flex-end; gap: 4px; }
-  .drishti-workspace .drishti-device-toolbar { padding: 16px 20px; }
-  .drishti-workspace .page-content { padding: 24px 16px !important; padding-bottom: 64px !important; }
+
+.drishti-brand-mark svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: #4bb4c0;
+  stroke-width: 2;
 }
-@media (max-width: 599px) {
-  .drishti-dashboard-header .drishti-connection-status { display: none; }
-  .drishti-dashboard-header .drishti-session-role { font-size: .72rem; }
-  .drishti-brand-lockup { gap: .55rem; }
-  .drishti-brand-name { font-size: 1.1rem; }
-  .drishti-brand-mark { width: 2.7rem; height: 2.3rem; }
-  .drishti-brand-attribution { max-width: 8rem; font-size: .61rem; }
-  .drishti-workspace .drishti-device-toolbar { align-items: stretch; flex-direction: column; gap: 12px; }
-  .drishti-device-toolbar > .MuiBox-root { width: 100%; flex-wrap: wrap; justify-content: flex-start; }
-  .drishti-device-toolbar .MuiFormControl-root { min-width: 0; flex: 1 1 220px; }
-  .drishti-workspace .page-content { padding: 20px 12px !important; padding-bottom: 64px !important; }
+
+.drishti-eye-pupil {
+  fill: #4bb4c0;
 }
-@media (prefers-reduced-motion: reduce) {
-  .drishti-workspace .MuiDrawer-paper, .drishti-workspace .MuiCard-root { transition: none; }
+
+.drishti-brand-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.drishti-brand-name {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -.04em;
+}
+
+.drishti-brand-attribution {
+  font-size: .68rem;
+  color: #a9c0cf;
+}
+
+.drishti-workspace {
+  min-height: 100dvh;
+  background: var(--drishti-page);
+  color: var(--drishti-text);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.drishti-workspace-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem clamp(1.5rem, 6vw, 6rem);
+  background: var(--drishti-navy);
+  color: #fff;
+}
+
+.drishti-header-home {
+  color: inherit;
+  text-decoration: none;
+}
+
+.drishti-user-menu {
+  position: relative;
+}
+
+.drishti-user-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .35rem .55rem;
+  color: #fff;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: .5rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.drishti-user-trigger:hover,
+.drishti-user-trigger[aria-expanded="true"] {
+  background: #ffffff1a;
+  border-color: #597085;
+}
+
+.drishti-user-avatar {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  color: var(--drishti-navy);
+  background: #c1e7ee;
+  border-radius: 50%;
+}
+
+.drishti-menu-list {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + .55rem);
+  right: 0;
+  display: grid;
+  min-width: 10rem;
+  padding: .35rem;
+  background: #fff;
+  border: 1px solid var(--drishti-border);
+  border-radius: .6rem;
+  box-shadow: 0 12px 30px #08192d33;
+}
+
+.drishti-menu-list a,
+.drishti-menu-list button {
+  display: block;
+  padding: .65rem .75rem;
+  color: #26364c;
+  text-align: left;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  border-radius: .35rem;
+  cursor: pointer;
+  font: inherit;
+}
+
+.drishti-menu-list a:hover,
+.drishti-menu-list button:hover {
+  background: #eaf6f7;
+}
+
+.drishti-nav-shell {
+  background: #fff;
+  border-bottom: 1px solid var(--drishti-border);
+}
+
+.drishti-nav-operational {
+  padding: .55rem clamp(1.5rem, 6vw, 6rem);
+}
+
+.drishti-nav {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: .25rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.drishti-nav-link {
+  display: block;
+  padding: .7rem .85rem;
+  border-radius: .55rem;
+  color: #40536a;
+  font-size: .82rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.drishti-nav-link:hover,
+.drishti-nav-link.is-active {
+  color: var(--drishti-teal);
+  background: #eaf6f7;
+}
+
+.drishti-nav-link.is-active {
+  box-shadow: inset 3px 0 0 var(--drishti-teal);
+}
+
+.drishti-nav-toggle {
+  display: none;
+  align-items: center;
+  gap: .5rem;
+  padding: .7rem .85rem;
+  border: 1px solid var(--drishti-border);
+  border-radius: .55rem;
+  color: var(--drishti-teal);
+  background: #fff;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.drishti-workspace-content {
+  width: min(100% - 3rem, 72rem);
+  margin: auto;
+  padding: clamp(2.5rem, 6vw, 5rem) 0;
+}
+
+.drishti-workspace-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.drishti-device-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .7rem;
+}
+
+.drishti-device-control label {
+  color: #526174;
+  font-size: .78rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.drishti-device-control select {
+  max-width: min(100%, 26rem);
+  min-height: 2.5rem;
+  padding: .4rem .7rem;
+  border: 1px solid #cbd5e1;
+  border-radius: .55rem;
+  color: var(--drishti-text);
+  background: #fff;
+  font: inherit;
+}
+
+.drishti-device-status,
+.drishti-workspace-telemetry,
+.drishti-status {
+  width: fit-content;
+  padding: .45rem .7rem;
+  color: #216170;
+  background: #e2f4f2;
+  border: 1px solid #c5e6e4;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 750;
+  text-transform: capitalize;
+}
+
+.drishti-workspace :is(a, button, select):focus-visible {
+  outline: 2px solid #29717f;
+  outline-offset: 2px;
+}
+
+.drishti-home-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.drishti-home-heading h1 {
+  margin: 0 0 .55rem;
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  letter-spacing: -.05em;
+}
+
+.drishti-home-heading p:last-child {
+  margin: 0;
+  color: #627086;
+}
+
+.drishti-eyebrow {
+  margin: 0 0 1rem;
+  color: #2f7481;
+  font-size: .72rem;
+  font-weight: 780;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.drishti-home-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1rem;
+}
+
+.drishti-home-options a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.drishti-card {
+  padding: 1.3rem;
+  background: #fff;
+  border: 1px solid var(--drishti-border);
+  border-radius: .85rem;
+  box-shadow: 0 8px 24px #16253b0d;
+}
+
+.drishti-home-options .drishti-card {
+  display: grid;
+  gap: .3rem;
+}
+
+.drishti-home-options small {
+  color: #718096;
+}
+
+.drishti-profile {
+  max-width: 48rem;
+}
+
+.drishti-profile dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.drishti-profile dt {
+  color: #778398;
+  font-size: .76rem;
+  text-transform: uppercase;
+}
+
+.drishti-profile dd {
+  margin: .35rem 0 0;
+  font-weight: 700;
+}
+
+@media (max-width: 850px) {
+  .drishti-workspace-header {
+    padding: 1rem 1.25rem;
+  }
+
+  .drishti-nav-shell {
+    padding: .6rem 1.25rem;
+  }
+
+  .drishti-nav-toggle {
+    display: inline-flex;
+  }
+
+  .drishti-nav {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: .65rem;
+    max-height: min(65dvh, 28rem);
+    overflow-y: auto;
+  }
+
+  .drishti-nav.is-open {
+    display: flex;
+  }
+
+  .drishti-home-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .drishti-profile dl {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .drishti-brand-lockup {
+    gap: .55rem;
+  }
+
+  .drishti-brand-name {
+    font-size: 1.1rem;
+  }
+
+  .drishti-brand-mark {
+    width: 2.7rem;
+    height: 2.3rem;
+  }
+
+  .drishti-brand-attribution {
+    max-width: 8rem;
+    font-size: .61rem;
+  }
+
+  .drishti-user-trigger > span:nth-child(2) {
+    display: none;
+  }
+
+  .drishti-workspace-content {
+    width: min(100% - 2rem, 72rem);
+    padding: 2rem 0;
+  }
+
+  .drishti-device-control select {
+    width: 100%;
+    max-width: 100%;
+  }
 }

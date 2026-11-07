@@ -143,10 +143,10 @@ export default function UserManagement() {
       return;
     }
 
-    if (role === "Admin" && catalog) {
+    if (role === "IT" && catalog) {
       const allPermissions = catalog.permissions;
       if (allPermissions.some((item) => !permissions.includes(item))) {
-        setError("Admin accounts must retain all permissions.");
+        setError("IT accounts must retain all permissions.");
         return;
       }
     }
@@ -301,7 +301,6 @@ export default function UserManagement() {
                 value={role}
                 onChange={(event) => changeRole(event.target.value)}
               >
-                <MenuItem value="Admin">Admin</MenuItem>
                 <MenuItem value="IT">IT</MenuItem>
                 <MenuItem value="User">User</MenuItem>
               </Select>
@@ -326,7 +325,7 @@ export default function UserManagement() {
                   control={
                     <Checkbox
                       checked={permissions.includes(permission)}
-                      disabled={role === "Admin"}
+                      disabled={role === "IT"}
                       onChange={(event) =>
                         togglePermission(permission, event.target.checked)
                       }

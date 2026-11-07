@@ -33,14 +33,7 @@ PAGE_PERMISSIONS = [
 ]
 
 ROLE_DEFAULTS = {
-    "Admin": PAGE_PERMISSIONS,
-    "IT": [
-        "dashboard",
-        "system_information",
-        "temperature_history",
-        "network",
-        "network_cameras",
-    ],
+    "IT": PAGE_PERMISSIONS,
     "User": [
         "live_cctv",
         "violations",
@@ -53,7 +46,7 @@ ROLE_DEFAULTS = {
 class LoginRequest(BaseModel):
     username: str
     password: str
-    role: str = "Admin"
+    role: str = "User"
 
 
 class UserCreate(BaseModel):
@@ -84,7 +77,7 @@ def _cleanup_sessions() -> None:
 
 def _create_session(
     username: str,
-    role: str = "Admin",
+    role: str = "IT",
     permissions: list[str] | None = None,
     user_id: int | None = None,
 ) -> str:
@@ -96,7 +89,7 @@ def _create_session(
     _session_users[session_id] = {
         "username": username,
         "role": role,
-        "permissions": list(permissions or ROLE_DEFAULTS["Admin"]),
+        "permissions": list(permissions if permissions is not None else ROLE_DEFAULTS.get(role, ROLE_DEFAULTS["IT"])),
         "user_id": user_id,
     }
     return session_id
@@ -122,15 +115,15 @@ def _session_identity(session_id: str | None) -> dict | None:
 
 def _is_admin(session_id: str | None) -> bool:
     identity = _session_identity(session_id)
-    return bool(identity and identity["role"] == "Admin")
+    return bool(identity and identity["role"] == "IT")
 
 
 def _public_user(user: DashboardUser) -> dict:
     return {
         "id": user.id,
         "username": user.username,
-        "role": user.role,
-        "permissions": user.permissions or [],
+        "role": "IT" if user.role == "Admin" else user.role,
+        "permissions": PAGE_PERMISSIONS if user.role == "Admin" else (user.permissions or ROLE_DEFAULTS.get(user.role, [])),
         "is_active": user.is_active,
         "created_at": user.created_at,
         "updated_at": user.updated_at,
@@ -141,7 +134,7 @@ def _validate_permissions(role: str, permissions: list[str] | None) -> list[str]
     if role not in ROLE_DEFAULTS:
         raise HTTPException(
             status_code=400,
-            detail="Role must be Admin, IT, or User",
+            detail="Role must be IT or User",
         )
     result = ROLE_DEFAULTS[role] if permissions is None else permissions
     unknown = sorted(set(result) - set(PAGE_PERMISSIONS))
@@ -150,10 +143,10 @@ def _validate_permissions(role: str, permissions: list[str] | None) -> list[str]
             status_code=400,
             detail=f"Unknown permissions: {', '.join(unknown)}",
         )
-    if role == "Admin" and set(result) != set(PAGE_PERMISSIONS):
+    if role == "IT" and set(result) != set(PAGE_PERMISSIONS):
         raise HTTPException(
             status_code=400,
-            detail="Admin users must retain all permissions",
+            detail="IT users must retain all permissions",
         )
     return list(dict.fromkeys(result))
 
@@ -162,115 +155,53 @@ def _require_admin(session_id: str | None) -> None:
     if not _valid_session(session_id):
         raise HTTPException(status_code=401, detail="Not authenticated")
     if not _is_admin(session_id):
-        raise HTTPException(status_code=403, detail="Admin access required")
+        raise HTTPException(status_code=403, detail="IT access required")
 
 
 @router.post("/login")
 def login(payload: LoginRequest, response: Response):
-    # Permanent environment-configured accounts take priority over database users.
-    fixed_accounts = [
-        (
-            settings.AUTH_IT_USERNAME,
-            settings.AUTH_IT_PASSWORD_HASH,
-            "IT",
-            ROLE_DEFAULTS["IT"],
-        ),
-        (
-            settings.AUTH_USER_USERNAME,
-            settings.AUTH_USER_PASSWORD_HASH,
-            "User",
-            ROLE_DEFAULTS["User"],
-        ),
-    ]
+    # DEMO MODE: credentials are not verified.
+    # The selected role determines the permissions granted.
+    role = payload.role
 
-    username = None
-    role = None
-    permissions = None
-    user_id = None
-
-    for fixed_username, fixed_hash, fixed_role, fixed_permissions in fixed_accounts:
-        if hmac.compare_digest(payload.username, fixed_username):
-            if not fixed_hash or not password_hash.verify(payload.password, fixed_hash):
-                raise HTTPException(
-                    status_code=401,
-                    detail="Invalid username or password",
-                )
-            username = fixed_username
-            role = fixed_role
-            permissions = fixed_permissions
-            break
-
-    db = SessionLocal()
-    try:
-        if username is None:
-            user = (
-                db.query(DashboardUser)
-                .filter(DashboardUser.username == payload.username)
-                .first()
-            )
-
-            if user is not None:
-                if (
-                    not user.is_active
-                    or not password_hash.verify(payload.password, user.password_hash)
-                ):
-                    raise HTTPException(
-                        status_code=401,
-                        detail="Invalid username or password",
-                    )
-                role = user.role
-                permissions = user.permissions or ROLE_DEFAULTS.get(user.role, [])
-                user_id = user.id
-                username = user.username
-            else:
-                # Preserve the existing environment-configured administrator.
-                username_valid = hmac.compare_digest(
-                    payload.username, settings.AUTH_USERNAME
-                )
-                password_valid = bool(settings.AUTH_PASSWORD_HASH) and (
-                    password_hash.verify(
-                        payload.password, settings.AUTH_PASSWORD_HASH
-                    )
-                )
-                if not username_valid or not password_valid:
-                    raise HTTPException(
-                        status_code=401,
-                        detail="Invalid username or password",
-                    )
-                username = settings.AUTH_USERNAME
-                role = "Admin"
-                permissions = PAGE_PERMISSIONS
-                user_id = None
-
-        if payload.role not in ROLE_DEFAULTS or payload.role != role:
-            raise HTTPException(
-                status_code=401,
-                detail="Invalid username or password",
-            )
-
-        session_id = _create_session(
-            username=username,
-            role=role,
-            permissions=permissions,
-            user_id=user_id,
+    if role not in ROLE_DEFAULTS:
+        raise HTTPException(
+            status_code=400,
+            detail="Role must be IT or User",
         )
-        response.set_cookie(
-            key=SESSION_COOKIE,
-            value=session_id,
-            max_age=SESSION_MAX_AGE,
-            httponly=True,
-            secure=False,
-            samesite="lax",
-            path="/",
+
+    username = payload.username.strip()
+    if not username:
+        raise HTTPException(
+            status_code=400,
+            detail="Please enter a username",
         )
-        return {
-            "authenticated": True,
-            "username": username,
-            "role": role,
-            "permissions": permissions,
-        }
-    finally:
-        db.close()
+
+    permissions = list(ROLE_DEFAULTS[role])
+
+    session_id = _create_session(
+        username=username,
+        role=role,
+        permissions=permissions,
+        user_id=None,
+    )
+
+    response.set_cookie(
+        key=SESSION_COOKIE,
+        value=session_id,
+        max_age=SESSION_MAX_AGE,
+        httponly=True,
+        secure=False,
+        samesite="lax",
+        path="/",
+    )
+
+    return {
+        "authenticated": True,
+        "username": username,
+        "role": role,
+        "permissions": permissions,
+    }
 
 @router.post("/logout")
 def logout(

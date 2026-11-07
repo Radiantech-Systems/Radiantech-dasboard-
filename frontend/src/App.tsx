@@ -20,6 +20,7 @@ import LiveCameraView from "./pages/LiveCameraView";
 import Settings from "./pages/Settings";
 import TrafficSignalControl from "./pages/TrafficSignalControl";
 import UserManagement from "./pages/UserManagement";
+import { OperationalHome, OperationalProfile } from "./components/OperationalPages";
 
 const ROUTE_PERMISSIONS: Record<string, string> = {
   "/": "dashboard",
@@ -143,12 +144,15 @@ function AuthenticatedApp({
     <DeviceProvider>
       <Layout
         status={socket.status}
-      userRole={identity.role}
+      userRole={identity.role ?? ""}
+      username={identity.username}
       permissions={identity.permissions ?? []}
       onLogout={handleLogout}
     >
       <PermissionGuard identity={identity}>
         <Routes>
+          <Route path="/operational" element={<OperationalHome identity={identity} />} />
+          <Route path="/operational/profile" element={<OperationalProfile identity={identity} />} />
           <Route path="/" element={<Dashboard socket={socket} />} />
           <Route path="/system-information" element={<SystemInformation socket={socket} />} />
           <Route path="/live-cctv" element={<LiveCCTV />} />
@@ -179,11 +183,29 @@ function PermissionGuard({
   children: ReactNode;
 }) {
   const location = useLocation();
+
+  if (
+    location.pathname === "/operational" ||
+    location.pathname === "/operational/profile"
+  ) {
+    return identity.role === "User"
+      ? <>{children}</>
+      : <Navigate to="/no-access" replace />;
+  }
+
+  if (
+    location.pathname === "/" &&
+    identity.role === "User" &&
+    !(identity.permissions ?? []).includes("dashboard")
+  ) {
+    return <Navigate to="/operational" replace />;
+  }
+
   const required = ROUTE_PERMISSIONS[location.pathname];
 
   if (
     required &&
-    identity.role !== "Admin" &&
+    identity.role !== "IT" &&
     !(identity.permissions ?? []).includes(required)
   ) {
     return <Navigate to="/no-access" replace />;
@@ -194,10 +216,10 @@ function PermissionGuard({
 
 function NoAccess() {
   return (
-    <div style={{ padding: 32 }}>
-      <h2>Access denied</h2>
+    <section className="drishti-card">
+      <h1>Access denied</h1>
       <p>Your account does not have permission to view this page.</p>
-    </div>
+    </section>
   );
 }
 
@@ -222,6 +244,6 @@ function LoginPage() {
   const navigate = useNavigate();
 
   return (
-    <Login onLogin={() => navigate("/", { replace: true })} />
+    <Login onLogin={(destination) => navigate(destination, { replace: true })} />
   );
 }

@@ -73,8 +73,8 @@ def require_page_access(permission: str):
         if not identity:
             raise HTTPException(status_code=401, detail="Not authenticated")
 
-        # Administrators retain full access, including bootstrap-admin sessions.
-        if identity.get("role") == "Admin":
+        # IT Operations retains full access, including the existing bootstrap account.
+        if identity.get("role") == "IT":
             return
 
         if permission not in identity.get("permissions", []):

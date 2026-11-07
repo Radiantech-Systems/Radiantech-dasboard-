@@ -125,7 +125,7 @@ def _authorized_media_path(session_id: str | None, permission: str,
     if not identity:
         raise HTTPException(status_code=401, detail="Not authenticated")
 
-    if identity.get("role") != "Admin" and permission not in identity.get("permissions", []):
+    if identity.get("role") != "IT" and permission not in identity.get("permissions", []):
         raise HTTPException(status_code=403, detail="Page access denied")
 
     root = Path(storage_dir).resolve()
@@ -232,7 +232,7 @@ async def websocket_telemetry(websocket: WebSocket):
             if (
                 not identity
                 or (
-                    identity.get("role") != "Admin"
+                    identity.get("role") != "IT"
                     and "traffic_signal_control" not in identity.get("permissions", [])
                 )
             ):
