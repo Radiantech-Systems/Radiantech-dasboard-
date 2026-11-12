@@ -230,6 +230,12 @@
   font: inherit;
 }
 
+.drishti-device-location {
+  color: #526174;
+  font-size: .85rem;
+  font-weight: 600;
+}
+
 .drishti-device-status,
 .drishti-workspace-telemetry,
 .drishti-status {

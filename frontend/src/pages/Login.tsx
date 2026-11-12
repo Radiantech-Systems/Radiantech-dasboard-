@@ -13,6 +13,7 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { login } from "../api/client";
 import BrandLockup from "../components/BrandLockup";
+import { ROLE_LABELS, type PoliceRole } from "../auth/policeRoles";
 import "../styles/drishti.css";
 import "./Login.css";
 
@@ -23,7 +24,9 @@ interface LoginProps {
 }
 
 export default function Login({ onLogin }: LoginProps) {
-  const [role, setRole] = useState<AccountRole>("IT");
+  const [role, setRole] = useState<AccountRole>("User");
+  const [policeRole, setPoliceRole] =
+    useState<PoliceRole>("COMMISSIONER");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +39,12 @@ export default function Login({ onLogin }: LoginProps) {
     setLoading(true);
 
     try {
-      const identity = await login(username, password, role);
+      const identity = await login(
+        username,
+        password,
+        role,
+        role === "User" ? policeRole : undefined
+      );
       onLogin(identity.role === "User" ? "/operational" : "/");
     } catch (err: any) {
       if (err?.response?.status === 401) {
@@ -110,6 +118,30 @@ export default function Login({ onLogin }: LoginProps) {
             className="login-form"
           >
             {error && <Alert severity="error">{error}</Alert>}
+
+            {role === "User" && (
+              <Box className="login-field-group">
+                <label htmlFor="police-role">
+                  Select your role
+                </label>
+                <select
+                  id="police-role"
+                  value={policeRole}
+                  disabled={loading}
+                  onChange={(event) =>
+                    setPoliceRole(event.target.value as PoliceRole)
+                  }
+                >
+                  {(Object.keys(ROLE_LABELS) as PoliceRole[]).map(
+                    (value) => (
+                      <option key={value} value={value}>
+                        {ROLE_LABELS[value]}
+                      </option>
+                    )
+                  )}
+                </select>
+              </Box>
+            )}
 
             <Box className="login-field-group">
               <Typography component="label" htmlFor="login-username">

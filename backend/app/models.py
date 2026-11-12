@@ -18,6 +18,7 @@ class Device(Base):
 
     device_id = Column(String(64), primary_key=True)
     device_name = Column(String(128), nullable=False)
+    location = Column(String(256), nullable=True)
     hostname = Column(String(128))
     ip_address = Column(String(64))
     status = Column(String(16), nullable=False, default="offline")

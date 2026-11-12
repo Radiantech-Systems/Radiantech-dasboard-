@@ -15,6 +15,7 @@ class SystemInfo(BaseModel):
     device_name: str
     device_id: str
     hostname: str
+    location: Optional[str] = None
     jetpack_version: Optional[str] = None
     ubuntu_version: Optional[str] = None
     kernel_version: Optional[str] = None

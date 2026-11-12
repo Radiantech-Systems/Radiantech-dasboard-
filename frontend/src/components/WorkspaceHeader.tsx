@@ -45,6 +45,8 @@ export default function WorkspaceHeader({
         <BrandLockup />
       </Link>
 
+      <div className="drishti-header-actions">
+      <span id="commissioner-notification-slot" />
       <div className="drishti-user-menu" ref={menuRef}>
         <button
           type="button"
@@ -87,6 +89,6 @@ export default function WorkspaceHeader({
           </div>
         )}
       </div>
-    </header>
+    </div></header>
   );
 }

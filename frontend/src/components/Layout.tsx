@@ -80,7 +80,12 @@ export default function Layout({
               <span className="drishti-device-status">
                 {selectedDevice.status.toUpperCase()}
               </span>
-            )}
+              )}
+              {selectedDevice?.location?.trim() && (
+                <span className="drishti-device-location">
+                  <span aria-hidden="true">📍</span> {selectedDevice.location}
+                </span>
+              )}
           </div>
 
           {userRole !== "User" && (

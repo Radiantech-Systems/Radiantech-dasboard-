@@ -43,10 +43,22 @@ ROLE_DEFAULTS = {
 }
 
 
+POLICE_ROLES = {
+    "COMMISSIONER",
+    "JOINT_COMMISSIONER",
+    "DCP",
+    "ACP",
+    "PI",
+    "HEAD_CONSTABLE",
+    "CONSTABLE",
+}
+
+
 class LoginRequest(BaseModel):
     username: str
     password: str
     role: str = "User"
+    police_role: str | None = None
 
 
 class UserCreate(BaseModel):
@@ -177,6 +189,13 @@ def login(payload: LoginRequest, response: Response):
             detail="Please enter a username",
         )
 
+    if payload.police_role is not None:
+        if role != "User" or payload.police_role not in POLICE_ROLES:
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid operational preview role",
+            )
+
     permissions = list(ROLE_DEFAULTS[role])
 
     session_id = _create_session(
@@ -185,6 +204,9 @@ def login(payload: LoginRequest, response: Response):
         permissions=permissions,
         user_id=None,
     )
+
+    # Preview metadata only; existing permissions stay unchanged.
+    _session_users[session_id]["police_role"] = payload.police_role
 
     response.set_cookie(
         key=SESSION_COOKIE,
@@ -198,6 +220,7 @@ def login(payload: LoginRequest, response: Response):
 
     return {
         "authenticated": True,
+        "police_role": payload.police_role,
         "username": username,
         "role": role,
         "permissions": permissions,
@@ -222,6 +245,7 @@ def me(telemetry_session: str | None = Cookie(default=None)):
         raise HTTPException(status_code=401, detail="Not authenticated")
     return {
         "authenticated": True,
+        "police_role": identity.get("police_role"),
         "username": identity["username"],
         "role": identity["role"],
         "permissions": identity["permissions"],

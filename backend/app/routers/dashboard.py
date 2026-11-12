@@ -19,6 +19,7 @@ def get_dashboard(db: Session = Depends(get_db), _auth=Depends(require_page_acce
         result.append({
             "device_id": d.device_id,
             "device_name": d.device_name,
+            "location": d.location,
             "status": d.status,
             "last_seen": d.last_seen,
             "cpu_usage_percent": (live.get("cpu") or {}).get("usage_percent"),
@@ -47,6 +48,7 @@ def get_devices(
             {
                 "device_id": device.device_id,
                 "device_name": device.device_name,
+                "location": device.location,
                 "status": device.status,
                 "last_seen": device.last_seen,
             }

@@ -1,3 +1,4 @@
+import { displayRole } from "../auth/displayRole";
 import { Link } from "react-router-dom";
 import type { AuthResponse } from "../api/client";
 
@@ -61,7 +62,7 @@ export function OperationalProfile({ identity }: { identity: AuthResponse }) {
         </div>
         <div>
           <dt>Role</dt>
-          <dd>{identity.role}</dd>
+          <dd>{displayRole(identity)}</dd>
         </div>
       </dl>
     </section>

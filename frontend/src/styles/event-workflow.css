@@ -1,0 +1,169 @@
+.events-search {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.events-search label {
+  font-weight: 700;
+  color: #25364c;
+}
+.events-search input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid #cbd8e6;
+  border-radius: 10px;
+  background: white;
+  color: #25364c;
+  font: inherit;
+}
+.workflow-status {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #edf2f7;
+  color: #25364c;
+  font-weight: 700;
+  white-space: normal;
+}
+.workflow-status.processed,
+.workflow-status.exemption_approved {
+  background: #e5f6ee;
+  color: #176744;
+}
+.workflow-status.exemption_pending {
+  background: #fff3d7;
+  color: #825b12;
+}
+.workflow-status.exemption_rejected {
+  background: #fde9e9;
+  color: #a12d35;
+}
+.commissioner-notifications {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  z-index: 1201;
+  padding: 12px 16px;
+  border: 1px solid #b9dfdf;
+  border-radius: 10px;
+  background: #e8f7f6;
+  color: #0e5261;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 12px #00000012;
+}
+.exemption-notifications-panel {
+  padding: 24px;
+  overflow-wrap: anywhere;
+}
+.exemption-notifications-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.exemption-notifications-heading h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+.exemption-notification {
+  padding: 18px 0;
+  border-bottom: 1px solid #e0e7ef;
+}
+.exemption-notification p { margin: 7px 0; }
+.exemption-review-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.exemption-notifications-panel button {
+  padding: 9px 12px;
+  border: 1px solid #c5d7e0;
+  border-radius: 7px;
+  background: #f3f8fa;
+  color: #174d5c;
+  font: inherit;
+  cursor: pointer;
+}
+.workflow-error {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1500;
+  width: min(90vw, 600px);
+  box-sizing: border-box;
+  padding: 15px;
+  background: #fff0f0;
+  color: #922b35;
+  border: 1px solid #edbcc2;
+  border-radius: 10px;
+}
+.workflow-error button { margin-left: 12px; }
+.exemption-notifications-panel button:disabled,
+.action-buttons button:disabled { cursor: wait; opacity: .6; }
+@media (max-width: 600px) {
+  .commissioner-notifications {
+    top: auto;
+    bottom: 18px;
+    right: 12px;
+  }
+}
+
+/* Notifications and account controls share normal header layout. */
+.drishti-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-left: auto;
+  min-width: 0;
+}
+
+#commissioner-notification-slot {
+  display: inline-flex;
+  align-items: center;
+}
+
+#commissioner-notification-slot:empty {
+  display: none;
+}
+
+.drishti-header-actions .commissioner-notifications {
+  position: static;
+  inset: auto;
+  transform: none;
+  margin: 0;
+  white-space: nowrap;
+  box-shadow: none;
+}
+
+.drishti-header-actions .drishti-user-menu {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.commissioner-evidence-image {
+  display: block;
+  width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+  margin: 18px 0;
+  border-radius: 10px;
+  background: #edf2f7;
+}
+
+@media (max-width: 600px) {
+  .drishti-header-actions {
+    gap: 8px;
+  }
+  .drishti-header-actions .commissioner-notifications {
+    padding: 9px 10px;
+    font-size: .8rem;
+  }
+}

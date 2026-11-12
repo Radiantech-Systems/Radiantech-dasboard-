@@ -36,6 +36,7 @@ async def ingest_telemetry(payload: TelemetryPayload, db: Session = Depends(get_
             device_id=device_id,
             device_name=payload.system_info.device_name,
             hostname=payload.system_info.hostname,
+            location=payload.system_info.location,
             ip_address=payload.network.ip_address,
             status="online",
             last_seen=now,
@@ -44,6 +45,7 @@ async def ingest_telemetry(payload: TelemetryPayload, db: Session = Depends(get_
     else:
         device.device_name = payload.system_info.device_name
         device.hostname = payload.system_info.hostname
+        device.location = payload.system_info.location
         device.ip_address = payload.network.ip_address
         device.status = "online"
         device.last_seen = now

@@ -1,0 +1,114 @@
+.cameras-page {
+  color: #25364c;
+  max-width: 1200px;
+}
+.cameras-page h1 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+}
+.cameras-page h2 { font-size: .95rem; }
+.camera-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: #0e5261;
+  font-size: .75rem;
+}
+.camera-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 24px 0 16px;
+  border-bottom: 1px solid #dbe2ea;
+}
+.camera-tabs button,
+.camera-tree button {
+  padding: 12px;
+  border: 0;
+  background: transparent;
+  color: #526276;
+  cursor: pointer;
+  font: inherit;
+}
+.camera-tabs button[aria-pressed=true] {
+  color: #0e5261;
+  border-bottom: 2px solid #0e5261;
+}
+.camera-workspace {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 16px;
+}
+.camera-tree,
+.camera-stream,
+.camera-recordings,
+.camera-telemetry {
+  background: white;
+  border: 1px solid #e0e5ec;
+  border-radius: 12px;
+  padding: 16px;
+}
+.camera-tree summary {
+  cursor: pointer;
+  padding: 8px 0;
+}
+.camera-tree details details { margin-left: 12px; }
+.camera-tree button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border-radius: 6px;
+}
+.camera-tree button[aria-pressed=true] {
+  color: #0e5261;
+  background: #eaf6f7;
+  font-weight: 700;
+}
+.camera-content { min-width: 0; }
+.camera-streams {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.camera-stream {
+  min-width: 0;
+  overflow: hidden;
+}
+.camera-stream video { width: 100%; }
+.camera-telemetry { margin-top: 20px; }
+.cameras-page button:focus-visible {
+  outline: 2px solid #0e5261;
+  outline-offset: 2px;
+}
+@media(max-width: 900px) {
+  .camera-workspace,
+  .camera-streams {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Streams connect only after clicking Play. */
+.camera-click-to-play {
+  display: grid;
+  min-height: 220px;
+  place-content: center;
+  gap: 12px;
+  padding: 20px;
+  text-align: center;
+  color: #627086;
+  background: #f4f7fa;
+  border-radius: 8px;
+}
+
+.camera-play-button {
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  border: 1px solid #0e5261;
+  border-radius: 7px;
+  background: #0e5261;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+
+.camera-play-button:hover {
+  background: #083d49;
+}

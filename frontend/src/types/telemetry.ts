@@ -145,6 +145,7 @@ export interface DeviceSummary {
 export interface DeviceOption {
   device_id: string;
   device_name: string;
+  location?: string | null;
   status: "online" | "offline";
   last_seen: string | null;
 }

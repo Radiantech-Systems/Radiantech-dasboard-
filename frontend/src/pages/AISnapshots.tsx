@@ -139,7 +139,7 @@ function formatTimestamp(timestamp: string): string {
 }
 
 export default function AISnapshots() {
-  const { selectedDeviceId } = useDevice();
+  const { selectedDeviceId, selectedDevice } = useDevice();
   const [search, setSearch] = useState("");
   const [fineRates, setFineRates] = useState<FineRate[]>([]);
   const [fineRatesFetchedAt, setFineRatesFetchedAt] = useState<string | null>(null);
@@ -460,5 +460,5 @@ useEffect(() => {
       }, 0)
     : null;
 
-  return <EventsTable key={selectedDeviceId} snapshots={selectedDeviceId ? snapshots : []} loading={loading} />;
+  return <EventsTable key={selectedDeviceId} snapshots={selectedDeviceId ? snapshots : []} loading={loading} fallbackLocation={selectedDevice?.location} />;
 }

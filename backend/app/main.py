@@ -97,6 +97,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from app.routers.event_workflow import router as event_workflow_router
+
+app.include_router(event_workflow_router)
 app.include_router(auth_router)
 app.include_router(telemetry.router)
 app.include_router(dashboard.router)

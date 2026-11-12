@@ -1,3 +1,4 @@
+import { EventWorkflowProvider } from "./components/EventWorkflow";
 import { DeviceProvider } from "./context/DeviceContext";
 import { useEffect, useState, type ReactNode } from "react";
 import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
@@ -142,6 +143,7 @@ function AuthenticatedApp({
 
   return (
     <DeviceProvider>
+      <EventWorkflowProvider identity={identity}>
       <Layout
         status={socket.status}
       userRole={identity.role ?? ""}
@@ -171,6 +173,7 @@ function AuthenticatedApp({
         </Routes>
       </PermissionGuard>
       </Layout>
+      </EventWorkflowProvider>
     </DeviceProvider>
   );
 }

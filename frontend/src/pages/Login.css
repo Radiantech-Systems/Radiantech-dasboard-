@@ -66,3 +66,24 @@
   .drishti-login-brand { padding: 24px 16px; }
   .role-switch .role-option { font-size: .7rem; }
 }
+
+/* Login workspace and authority selector */
+.role-switch {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.login-field-group select {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px;
+  color: #27344a;
+  background: white;
+  border: 1px solid #cbd2df;
+  border-radius: 9px;
+  font: inherit;
+}
+
+.login-field-group select:focus-visible {
+  outline: 2px solid #29717f;
+  outline-offset: 2px;
+}

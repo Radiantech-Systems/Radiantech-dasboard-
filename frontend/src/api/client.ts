@@ -1,3 +1,4 @@
+import type { PoliceRole } from "../auth/policeRoles";
 import axios from "axios";
 import type {
   DeviceSummary,
@@ -29,6 +30,7 @@ const client = axios.create({
 
 export interface AuthResponse {
   authenticated: boolean;
+  police_role?: PoliceRole | null;
   username?: string;
   role?: string;
   permissions?: string[];
@@ -52,12 +54,14 @@ export interface PermissionCatalog {
 export async function login(
   username: string,
   password: string,
-  role: "User" | "IT"
+  role: "User" | "IT",
+  policeRole?: PoliceRole
 ): Promise<AuthResponse> {
   const { data } = await client.post<AuthResponse>("/auth/login", {
     username,
     password,
     role,
+    police_role: policeRole,
   });
 
   return data;
